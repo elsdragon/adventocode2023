@@ -3,6 +3,18 @@ from functools import reduce
 
 from file_tools import read_file
 
+from word2number import w2n
+
+w2n.word_to_num
+
+numbers = [('one', '1'), ('two', '2'), ('three', '3'),
+           ('four', '4'), ('five', '5'), ('six', '6'),
+           ('seven', '7'), ('eight', '8'), ('nine', '9'),
+           ('zero', '0')]
+dict_numbers = {'one': '1', 'two': '2', 'three': '3', 'four': '4', 'five': '5', 
+                'six': '6', 'seven': '7', 'eight': '8', 'nine': '9', 'zero': '0'}
+
+
 
 def calibration_value(cal_val:str)->int:
     ''' 
@@ -14,10 +26,18 @@ def calibration_value(cal_val:str)->int:
 
     new_string = ''
     digit = 0
-    if cal_val!= '':
-        new_string = ''.join(list(filter(lambda char: char in '0123456789', cal_val)))
-        if new_string != '':
-            digit = int(new_string[0]+new_string[-1])
+    if cal_val != '':
+        for index in range(len(cal_val)):
+            if cal_val[index].isdigit():
+                new_string += cal_val[index]
+            else:
+                for num, value in dict_numbers.items():
+                    if cal_val[index: index + len(num)] == num:
+                        new_string += value
+   
+        
+    if new_string != '':
+        digit = int(new_string[0]+new_string[-1])
 
     return digit
 
