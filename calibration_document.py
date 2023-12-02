@@ -1,3 +1,8 @@
+
+from functools import reduce
+
+
+
 def calibration_value(cal_val:str)->int:
     ''' 
     Select from a string first and last char that it is a number. 
@@ -16,11 +21,33 @@ def calibration_value(cal_val:str)->int:
     return digit
 
 
-def calibration_document():
-    pass
+def calibration_document(cal_doc: list[str])-> list[int]:
+
+    '''  
+    From a list of strings return a list of integer with first and last number 
+    included in every string. 
+    If list is empty return an empty list.
+    '''
+    doc_int: list[int]
+    doc_int = []
+
+    if cal_doc != []:
+        doc_int = list(map(lambda element: calibration_value(element), cal_doc))
+
+    return doc_int
+    
 
 
-def sum_calibration_document():
+def sum_calibration_document(doc_int: list[int])-> int:
+    '''  
+    Return sum of elements of a list. 
+    '''
+    sum = 0
+    if doc_int != []:   
+        sum = reduce(lambda a, b: a + b, doc_int)
+    return sum
 
 
-    pass
+if __name__ == '__main__':
+    calibration_document()
+    sum_calibration_document()
