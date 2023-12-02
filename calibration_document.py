@@ -1,6 +1,7 @@
 
 from functools import reduce
 
+from file_tools import read_file
 
 
 def calibration_value(cal_val:str)->int:
@@ -49,5 +50,12 @@ def sum_calibration_document(doc_int: list[int])-> int:
 
 
 if __name__ == '__main__':
-    calibration_document()
-    sum_calibration_document()
+   
+    text = read_file('input.txt')
+    
+    list_text = text.split()
+    
+    document = calibration_document(list_text)
+    
+    sum = sum_calibration_document(document)
+    print('Sum: ', sum)
