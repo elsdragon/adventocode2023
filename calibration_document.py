@@ -3,9 +3,9 @@ from functools import reduce
 
 from file_tools import read_file
 
-from word2number import w2n
 
-w2n.word_to_num
+
+
 
 dict_numbers = {'one': '1', 'two': '2', 'three': '3', 'four': '4', 'five': '5', 
                 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9', 'zero': '0'}
