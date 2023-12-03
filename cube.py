@@ -32,6 +32,41 @@ def is_cube_possible(games: list[dict])-> bool:
   
     return result
 
+
+def each_cube_need(games: list[dict[str: int]])-> list[dict[str: int]]:
+
+    ''' Return max num of same key 
+    '''
+    new_dict = {}
+    max_blue = 0
+    max_red = 0
+    max_green = 0
+    for index in range(len(games)):
+       
+        for key, value in games[index].items():
+            if key == 'blue' and value > max_blue:
+                max_blue = value
+            elif key == 'red' and value > max_red:
+                max_red = value
+            elif key == 'green' and value> max_green:
+                max_green = value
+    new_dict['blue'] = max_blue
+    new_dict['red']= max_red
+    new_dict['green'] = max_green        
+
+    return new_dict
+
+def dict_cube_need(games: list[dict])-> list[dict]:
+    n_list = []
+    for index in range(len(games)):
+        n_dict = {}
+        for key, value in games[index].items():
+            n_dict[key] = each_cube_need(value)
+        n_list.append(n_dict)
+    return n_list
+            
+
+        
 def lol_text(text: list[str])->list[list]:
     '''  
     Transform every string of a list in another list. 
@@ -106,6 +141,21 @@ def sum_possibles(possible: dict[int:bool])-> int:
         if value == True:
             result += key
     return result
+def power_of_set(max_cube: dict)-> int:
+    ''' 
+    Return  product of values in a dict 
+    '''
+        
+    return reduce(lambda ac, n: ac * n, max_cube.values())
+
+def list_power_of_set(max_cubes: list[dict])-> list[int]:
+    n_list = []
+    for index in range(len(max_cubes)):
+        for value in max_cubes[index].values():
+            n_list.append(power_of_set(value))
+    
+    return n_list
+
 
 if __name__ == '__main__':
    
@@ -115,8 +165,16 @@ if __name__ == '__main__':
     lol_tex = lol_text(list_text)
     
     list_codes = transform_lol(lol_tex)
-    #print(list_codes)
+    print(list_codes)
     possibles = dict_possible(list_codes)
     
     sum = sum_possibles(possibles)
     print('Sum: ', sum)
+    
+    max_cubes = dict_cube_need(list_codes)
+   
+    list_max = list_power_of_set(max_cubes)
+    
+
+    sum_power = reduce(lambda ac, n: ac + n, list_max)
+    print(sum_power)
